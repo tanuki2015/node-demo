@@ -1,0 +1,19 @@
+{
+  "name": "node-demo",
+  "version": "1.0.0",
+  "description": "node练习 ## tcp/ip 三次握手四次挥手 - syn synchronize 同步 - ack acknowledge 确认 - fin finsh       结束",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tanuki2015/node-demo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tanuki2015/node-demo/issues"
+  },
+  "homepage": "https://github.com/tanuki2015/node-demo"
+}
