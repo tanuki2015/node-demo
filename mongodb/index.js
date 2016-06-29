@@ -34,6 +34,7 @@ BookModel.find({}, (err, docs) => {
   }
 });
 
+module.exports = db;
 /*
 * 可以这样理解：
 * schema对应于关系数据库中的表结构，mongo是无模式的，没有表结构的概念
