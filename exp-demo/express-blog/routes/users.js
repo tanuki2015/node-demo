@@ -16,13 +16,16 @@ router.get('/reg', function(req, res, next) {
 router.post('/reg', function(req, res, next) {
   // 处理表单数据
   const user = req.body;
+
   if(user.password != user.repeatPassword){
     return res.redirect('back'); // back参数 回退到上一个页面 记得return，后面操作都不需要了
   }
   delete user.repeatPassword;
   user.password = crypto.createHash('md5').update(user.password).digest('hex');
 
-  user.avatar = 'https://secure.gravator.com/avator/xxx?s=48';
+  const avatarEmail = crypto.createHash('md5').update(user.email).digest('hex')
+  user.avatar = `https://secure.gravator.com/avator/${avatarEmail}?s=48`;
+
   // 通过model的实例操作数据库 就是 entity 其中user是press解析好的对象可以直接用
   const UserEntity = new UserModel(user);
   UserEntity.save((err, doc) => {
