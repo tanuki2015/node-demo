@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+const flash = require('connect-flash');
+
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
@@ -27,6 +29,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 // use session after bodyParser
 app.use(session({
   secret: 'myblog',
@@ -40,12 +43,14 @@ app.use(session({
   })
 }))
 
+app.use(flash()); // 使用flash提示消息
+
 // 中间件，把session中的user给模板
 app.use(function(req, res, next){
   // res.locals对象是渲染模板时候用到的对象
   res.locals.user = req.session.user;
-  res.locals.success = req.session.success || '';
-  res.locals.error = req.session.error || '';
+  res.locals.success = req.flash('success').toString();
+  res.locals.error = req.flash('error').toString();
   next();
 })
 

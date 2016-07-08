@@ -27,5 +27,7 @@ nav.navbar.navbar-default
     // /.navbar-collapse
   // /.container-fluid
     // 利用session显示错误信息
-.alert.alert-success(role='alert') #{success}
-.alert.alert-danger(role='alert') #{error}
+- if(success)
+  .alert.alert-success(role='alert') #{success}
+- if(error)
+  .alert.alert-danger(role='alert') #{error}

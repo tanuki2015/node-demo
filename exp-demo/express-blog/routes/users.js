@@ -18,7 +18,7 @@ router.post('/reg', function(req, res, next) {
   const user = req.body;
 
   if(user.password != user.repeatPassword){
-    req.session.error = '两次输入密码不一致';
+    req.flash('error', '两次输入密码不一致');
     return res.redirect('back'); // back参数 回退到上一个页面 记得return，后面操作都不需要了
   }
   delete user.repeatPassword;
@@ -31,12 +31,12 @@ router.post('/reg', function(req, res, next) {
   const UserEntity = new UserModel(user);
   UserEntity.save((err, doc) => {
     if(err){
-      req.session.error = '保存失败';
+      req.flash('error', '保存失败');
       return res.redirect('back');
     }else{
       // save session
       req.session.user = doc;
-      req.session.success = '注册成功';
+      req.flash('success', '注册成功')
       return res.redirect('/');
     }
   });
