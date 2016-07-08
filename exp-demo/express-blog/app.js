@@ -5,6 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var article = require('./routes/article');
@@ -24,6 +27,28 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+// use session after bodyParser
+app.use(session({
+  secret: 'myblog',
+  resave: true,
+  saveUninitialized: true,
+  store: new MongoStore({
+    host: 'localhost',
+    port: 27017,
+    db: 'test',
+    url: 'mongodb://localhost/test',
+  })
+}))
+
+// 中间件，把session中的user给模板
+app.use(function(req, res, next){
+  // res.locals对象是渲染模板时候用到的对象
+  res.locals.user = req.session.user;
+  res.locals.success = req.session.success || '';
+  res.locals.error = req.session.error || '';
+  next();
+})
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);

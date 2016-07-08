@@ -18,3 +18,28 @@
 在views中建立header和footer模板
 
 ## 调试的时候，有时候会出现模板修改后没有显示没有变化，需要重新启动服务器才行。
+
+------
+
+在reg页面提交的表单数据会放在http报文的entity-body中，而header中的content-type表示了表单数据
+的格式，通常是 application/x-www-form-urlencoded。
+
+express会用bodyParser模块解析，然后把消息体放到req.body中，所以我们用req.body就可以得到表单
+提交的数据。
+
+## 使用会话中间件
+app.js中需要
+```
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
+// use session after bodyParser
+app.use(session({
+  resave: true,
+  store: new MongoStore({
+    host: 'localhost',
+    port: 27017,
+    db: 'test',
+  })
+}))
+```

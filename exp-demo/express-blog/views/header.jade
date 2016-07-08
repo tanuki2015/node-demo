@@ -9,17 +9,23 @@ nav.navbar.navbar-default
         span.icon-bar
       a.navbar-brand(href='#') 博客 demo
     // Collect the nav links, forms, and other content for toggling
+    // 有user则显示发表文章和退出，否则显示注册和登陆
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       ul.nav.navbar-nav
-        li.active
-          a(href='/users/reg')
-            | 注册 
-            span.sr-only (current)
-        li
-          a(href='/users/login') 登录
-        li
-          a(href='/article/add') 发表文章
-        li
-          a(href='/users/logout') 退出
+        - if(!user)
+          li.active
+            a(href='/users/reg')
+              | 注册 
+              span.sr-only (current)
+          li
+            a(href='/users/login') 登录
+        - else    
+          li
+            a(href='/article/add') 发表文章
+          li
+            a(href='/users/logout') 退出
     // /.navbar-collapse
   // /.container-fluid
+    // 利用session显示错误信息
+.alert.alert-success(role='alert') #{success}
+.alert.alert-danger(role='alert') #{error}
