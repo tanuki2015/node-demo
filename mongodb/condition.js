@@ -18,8 +18,8 @@ const BookModel = db.model('Book');
 // 查询的条件是一个对象，以 或or 为例
 const condition= {
   $or:[
-    {author: 'abc'},
-    {author: 'efg'},
+    {author: 'a'},
+    {author: 'b'},
   ]
 };
 
@@ -34,3 +34,15 @@ BookModel.find(condition)
 .catch(err => console.log(err));
 
 // 这一段有问题，就是没有找到的时候也不返回消息。
+// findOne没找到返回的是null，比较一下就可以if(doc != null){...}
+// find没找到返回空数组，看一下数组的长度就知道是否找到
+
+BookModel.find(condition)
+.then(docs => {
+  if(docs.length != 0){
+    console.log(docs);
+  }else{
+    console.log('没有这样的数据');
+  }
+})
+.catch(err => console.log(err));
