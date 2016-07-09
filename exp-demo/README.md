@@ -35,11 +35,14 @@ const MongoStore = require('connect-mongo')(session);
 
 // use session after bodyParser
 app.use(session({
+  secret: 'myblog',
   resave: true,
+  saveUninitialized: true,
   store: new MongoStore({
     host: 'localhost',
     port: 27017,
     db: 'test',
+    url: 'mongodb://localhost/test',
   })
 }))
 ```

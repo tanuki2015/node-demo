@@ -7,8 +7,11 @@ router.get('/add', function(req, res, next) {
 });
 
 router.post('/add', function(req, res, next) {
-  // res.send('respond with a resource');
-  res.redirect('/');
+  // const article = req.body;
+  // const user = req.session.user;
+  // article.author = user._id;
+
+
 });
 
 

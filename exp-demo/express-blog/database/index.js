@@ -15,5 +15,14 @@ const UserSchema = new mongoose.Schema({
 // 使用当前数据库，也就是mongoose.connect连接后返回的对象 db
 const UserModel = db.model('User', UserSchema);
 
-// global.dbModel = type => mongoose.model(type);
-module.exports = UserModel;
+// 发表文章的schema
+const ObjectId = mongoose.Schema.Types.Objectid;
+const ArticleSchema = new mongoose.Schema({
+  title: {type: String, require: true},
+  content: {type: String, require: true},
+  createAt: {type: Date, default: Date.now},
+  // author: {type: ObjectId, ref:'User'}
+});
+const ArticleModel = db.model('Article', ArticleSchema);
+module.exports.UserModel = UserModel;
+module.exports.ArticleModel = ArticleModel;

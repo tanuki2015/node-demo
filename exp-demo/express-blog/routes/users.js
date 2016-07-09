@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const UserModel = require('../database/index.js');
+const UserModel = require('../database/index.js').UserModel;
+const ArticleModel = require('../database/index.js').ArticleModel;
 const crypto = require('crypto');
 
 /* GET users listing. */
