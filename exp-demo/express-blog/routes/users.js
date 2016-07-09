@@ -48,8 +48,21 @@ router.get('/login', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
-  // res.send('respond with a resource');
-  res.redirect('/');
+  const user = req.body;
+  user.password = crypto.createHash('md5').update(user.password).digest('hex');
+  UserModel.findOne(user, (err, doc) => {
+    if(err){
+      console.log(err);
+      return res.redirect('back');
+    }else if(doc != null){
+      req.session.user = doc;
+      req.flash('success', '登陆成功');
+      return res.redirect('/');
+    }else{
+      req.flash('error', '登陆失败');
+      return res.redirect('back');
+    }
+  })
 });
 
 router.get('/logout', function(req, res, next) {
