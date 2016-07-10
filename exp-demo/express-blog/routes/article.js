@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const ArticleModel = require('../database/index.js').ArticleModel;
+
 
 router.get('/add', function(req, res, next) {
   // res.send('respond with a article add');
@@ -7,10 +9,20 @@ router.get('/add', function(req, res, next) {
 });
 
 router.post('/add', function(req, res, next) {
-  // const article = req.body;
-  // const user = req.session.user;
-  // article.author = user._id;
+  const article = req.body;
+  const user = req.session.user;
+  article.author = user._id;
 
+  const ArticleEntity = new ArticleModel(article);
+  ArticleEntity.save((err, doc) => {
+    if(err){
+      req.flash('error', '保存失败');
+      return res.redirect('back');
+    }else{
+      req.flash('success', '保存成功')
+      return res.redirect('/');
+    }
+  });
 
 });
 
