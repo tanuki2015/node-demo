@@ -24,5 +24,5 @@ const ArticleSchema = new mongoose.Schema({
   author: {type: ObjectId, ref: 'UserModel'},
 });
 const ArticleModel = db.model('Article', ArticleSchema);
-module.exports.UserModel = UserModel;
-module.exports.ArticleModel = ArticleModel;
+exports.UserModel = UserModel;
+exports.ArticleModel = ArticleModel;
