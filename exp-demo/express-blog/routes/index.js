@@ -1,9 +1,13 @@
 var express = require('express');
 var router = express.Router();
+const ArticleModel = require('../database/index.js').ArticleModel;
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  ArticleModel.find({}).populate('user').exec((err, docs) => {
+    res.render('index', { title: 'wellcome my blog!', articles: docs });
+  })
 });
 
 module.exports = router;
