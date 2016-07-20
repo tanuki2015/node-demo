@@ -1,14 +1,15 @@
 var express = require('express');
 var router = express.Router();
 const ArticleModel = require('../database/index.js').ArticleModel;
+const authorise = require('../authorise/');
 
 
-router.get('/add', function(req, res, next) {
+router.get('/add', authorise.mustLogin, function(req, res, next) {
   // res.send('respond with a article add');
   res.render('add', { title: '发表文章' });
 });
 
-router.post('/add', function(req, res, next) {
+router.post('/add', authorise.mustLogin, function(req, res, next) {
   const article = req.body;
   const user = req.session.user;
   article.author = user._id;

@@ -3,18 +3,20 @@ var router = express.Router();
 const UserModel = require('../database/index.js').UserModel;
 const ArticleModel = require('../database/index.js').ArticleModel;
 const crypto = require('crypto');
+const authorise = require('../authorise/');
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
 // });
 
-router.get('/reg', function(req, res, next) {
+// 加入鉴权中间件
+router.get('/reg', authorise.mustNotLogin, function(req, res, next) {
   // res.send('respond with a resource');
   res.render('reg', { title: '用户注册' });
 });
 
-router.post('/reg', function(req, res, next) {
+router.post('/reg', authorise.mustNotLogin, function(req, res, next) {
   // 处理表单数据
   const user = req.body;
 
@@ -43,12 +45,12 @@ router.post('/reg', function(req, res, next) {
   });
 });
 
-router.get('/login', function(req, res, next) {
+router.get('/login', authorise.mustNotLogin, function(req, res, next) {
   // res.send('respond with a resource');
   res.render('login', { title: '用户登录' });
 });
 
-router.post('/login', function(req, res, next) {
+router.post('/login', authorise.mustNotLogin, function(req, res, next) {
   const user = req.body;
   user.password = crypto.createHash('md5').update(user.password).digest('hex');
   UserModel.findOne(user, (err, doc) => {
@@ -66,7 +68,7 @@ router.post('/login', function(req, res, next) {
   })
 });
 
-router.get('/logout', function(req, res, next) {
+router.get('/logout', authorise.mustLogin, function(req, res, next) {
   req.session.user = null;
   res.redirect('/');
 });

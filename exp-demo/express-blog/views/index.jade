@@ -1,11 +1,12 @@
 extends layout
 
 block content
-  - each article in articles
-    .media 
-      .media-left
-        a(href='#')
-          img.media-object(src='#{article.author.avatar}', alt='...')
-      .media-body
-        h4.media-heading Media heading #{article.title}
-        p #{article.content}
+  .container-fluid
+    - each article in articles
+      .media 
+        .media-left
+          a(href='#')
+            img.media-object(src='#{article.author.avatar}', alt='...')
+        .media-body
+          h4.media-heading Media heading #{article.title}
+          p #{article.content}
