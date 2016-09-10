@@ -1,0 +1,27 @@
+/*
+Theme Name: 傅王爷的web
+Theme URI: http://localhost
+Description: 傅王爷的第一个主题模版
+Version: 0.1
+Author: 萧飞
+Author URI: http://xxx.xxx.xxx
+Tags: 简洁，单栏，响应式，bootstrap
+*/
+```
+
+body{
+  font-family: 'Lato', sans-serif;
+}
+
+.button-radius{
+  border-radius: 48px;
+}
+
+.button-title {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.button-teaser{
+  font-size: 14px;
+}
